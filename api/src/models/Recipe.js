@@ -42,7 +42,7 @@ module.exports = (sequelize) => {
 
    sequelize.define('diet', {
     id: { 
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER, 
       autoIncrement: true,
       primaryKey: true,
     },  
