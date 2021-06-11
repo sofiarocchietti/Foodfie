@@ -35,7 +35,7 @@ const { API_KEY } = process.env
   
 }
 
-async function getRecipeById (req, res, next) {
+ function getRecipeById (req, res, next) {
   const {id} = req.params
   /* try {
     if (id.length < 35) {
@@ -97,7 +97,7 @@ async function getRecipeById (req, res, next) {
   }
 }
 
-/*  async function postRecipe(req, res) {
+async function postRecipe(req, res) {
 const { name, summary, spoonacularScore, healthScore, analyzedInstructions, diets } = req.body; 
 const id = uuidv4();
   if (!name || !summary) return res.status(404).send('mandame los datos papá')
@@ -121,38 +121,7 @@ const id = uuidv4();
 
     return res.json(recipes_diets) 
 } 
- */
- async function postRecipe (req, res, next) {
-  const id = uuidv4();
-  const recipe = {...req.body, id};
-  if(!req.body.name || !req.body.summary) {
-      return res.send({      
-          message: 'Missing name or summary',
-      });
-  }
-  try {
-      const createdRecipe = await Recipe.create(recipe);
-       await createdRecipe.addDiet(req.body.diet1, {through:'recipe_diet'})
-       await createdRecipe.addDiet(req.body.diet2, {through:'recipe_diet'})
-       await createdRecipe.addDiet(req.body.diet3, {through:'recipe_diet'})
-       await createdRecipe.addDiet(req.body.diet4, {through:'recipe_diet'})
-       await createdRecipe.addDiet(req.body.diet5, {through:'recipe_diet'})
-       await createdRecipe.addDiet(req.body.diet6, {through:'recipe_diet'})
-       await createdRecipe.addDiet(req.body.diet7, {through:'recipe_diet'})
-       await createdRecipe.addDiet(req.body.diet8, {through:'recipe_diet'})
-       await createdRecipe.addDiet(req.body.diet9, {through:'recipe_diet'})
-      const result = await Recipe.findOne({
-          where: {
-              name: req.body.name
-          },
-          include: Diet
-      });
-      return res.send(result);
-  } catch(error) {
-      next(error);
-  }
-
-}
+ 
 
 
 module.exports = {

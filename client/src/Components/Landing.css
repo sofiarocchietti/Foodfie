@@ -1,0 +1,48 @@
+.landing-container{
+     background-image:
+  /*   linear-gradient(
+     
+      transparent,
+      rgba(37, 37, 37, 0.61),
+      #111
+    ),  */
+    url('https://themuslimwomentimes.com/wp-content/uploads/2021/02/pexels-karolina-grabowska-4199098-2048x1365.jpg');
+   /*  background-size: cover; */
+   background-size: cover; 
+   background-position: center 70%;
+   overflow:hidden;
+   width: 100vw;
+   height: 100vh; 
+   
+}
+
+.button_home {
+    
+    background-image: linear-gradient(to right, #eacda3 0%, #d6ae7b  51%, #eacda3  100%);
+   
+       margin: 10px;
+       padding: 15px 45px;
+       text-align: center;
+       text-transform: uppercase;
+       transition: 0.5s;
+       background-size: 200% auto;
+       color: white;            
+       box-shadow: 0 0 20px #eee;
+       border-radius: 10px;
+       display: block;
+
+}
+.button_home:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .link_text { 
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.52);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 40px;
+    text-decoration: none;
+    max-width: 50px;
+   }

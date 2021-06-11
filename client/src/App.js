@@ -1,9 +1,13 @@
+import React from 'react';
+import { Route } from 'react-router-dom';
+import Landing from './Components/Landing';
 import './App.css';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Food</h1>
+       <Route exact path='/' component={Landing} />
     </div>
   );
 }
