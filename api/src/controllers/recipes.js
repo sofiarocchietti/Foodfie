@@ -5,35 +5,29 @@ const { v4: uuidv4 } = require('uuid')
 const axios = require('axios').default
 const { API_KEY } = process.env
 
-  function getRecipeByName (req, res, next) {
+  async function getRecipeByName (req, res, next) {
   const {name} = req.query
   console.log(name)
-  const apiRecipes = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&query=${name}`)
-  const dbRecipes = Recipe.findAll({where: {name: { [Op.iLike]: `%${name}%`}}})
-    if (dbRecipes.length === 0) {
-    const p = new Promise(apiRecipes)
-    p.then(response => {
-    if(response.data.totalResults > 0)
-    {const apiResponseByName = response
-        let result = apiResponseByName.slice(0, 9)
-        return res.send(result)}
-    }).catch(err=> res.status(404).json({error: 'invalid name'}))
-  }else {
-    Promise.all([apiRecipes, dbRecipes])
-      .then(response => {
-        const [apiResponseee, dbRecipiesResponse] = response
-        let concat = dbRecipiesResponse.concat(apiResponseee.data.results)
-        let result = concat.slice(0, 9)
-        return res.send(result)
-      })
-      .catch(err => res.status(400).json({error: 'invalid name'})); 
-  } 
-  
+  try {
+    const apiRecipes = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&query=${name}`)
+    const dbRecipes = await Recipe.findAll({where: {name: { [Op.iLike]: `%${name}%`}}})
+   if (dbRecipes.length === 0) {
+       let result = apiRecipes.data.results.slice(0, 9)
+       if (apiRecipes.data.results.length === 0) return res.status(404).send('Invalid search')
+       return res.send(result) 
+   } else {
+      let totalRecipes = dbRecipes.concat(apiRecipes.data.results)
+      let totalRecipesConcat = totalRecipes.slice(0,9)
+     return res.send(totalRecipesConcat)
+   }
+  } catch (error) {
+    next(error)
+  }
 }
 
- function getRecipeById (req, res, next) {
+ async function getRecipeById (req, res, next) {
   const {id} = req.params
-  /* try {
+   try {
     if (id.length < 35) {
       const apiRecipes = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
       let objectResponse = {
@@ -58,11 +52,10 @@ const { API_KEY } = process.env
       })
       return res.send(dbRecipeId)
     }
-    if (!apiRecipes && !dbRecipeId) return res.status(404).send('no')
   } catch(error) {
       next(error)
-  } */
-   if (id.length < 35) {
+  } 
+   /* if (id.length < 35) {
       const apiRecipes =  axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
       apiRecipes.then(response => {
       const apiResponse = response
@@ -90,7 +83,7 @@ const { API_KEY } = process.env
     }).then(response => {
       return res.send(response)
     }).catch(err=> res.status(404).json({error: 'ID invalido'})); 
-  }
+  } */
 }
 
 async function postRecipe(req, res) {
