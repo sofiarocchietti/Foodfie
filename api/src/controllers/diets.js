@@ -2,28 +2,30 @@ const { Diet } = require('../db')
 const axios = require('axios').default
 const { API_KEY } = process.env
 
-function getDiets (req, res, next) {
-  const dietsData = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
-  let dietTypes = []
-  dietsData.then(data => {
-    let dietsDataResult = data
-    dietsDataResult.data.results.forEach(result => {
-      result.diets.forEach(result => {
-        if (!dietTypes.includes(result)) {
-          dietTypes.push(result)
-        }
-      })
+async function getDiets (req, res, next) {
+  try{
+  const dietsData = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
+  var dietTypes = []
+  
+  await dietsData.data.results.forEach(result => {
+     result.diets.forEach(result => {
+      if (!dietTypes.includes(result)) {
+        dietTypes.push(result)
+      }
     })
   })
-  .then(dietTypes.forEach(result => {
-    Diet.create({
-        name: result
+  for(let i = 0; i < dietTypes.length; i++) {
+    await Diet.findOrCreate({
+      where: {
+        name: dietTypes[i]
+      }
     })
-  }))
-    .then(dietResult => {
-      Diet.findAll().then(data => {
-        return res.send(data)})})
-    .catch((err) => next(err))
+  }
+  let dietResults = await Diet.findAll();
+  res.send(dietResults)
+} catch (error) {
+  next(error)
+}
 }
 
 module.exports = {
