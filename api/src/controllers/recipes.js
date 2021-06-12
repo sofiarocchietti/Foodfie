@@ -6,12 +6,10 @@ const axios = require('axios').default
 const { API_KEY } = process.env
 
   function getRecipeByName (req, res, next) {
-
   const {name} = req.query
   console.log(name)
   const apiRecipes = axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&query=${name}`)
   const dbRecipes = Recipe.findAll({where: {name: { [Op.iLike]: `%${name}%`}}})
-
     if (dbRecipes.length === 0) {
     const p = new Promise(apiRecipes)
     p.then(response => {
@@ -23,12 +21,10 @@ const { API_KEY } = process.env
   }else {
     Promise.all([apiRecipes, dbRecipes])
       .then(response => {
-        console.log(response)
         const [apiResponseee, dbRecipiesResponse] = response
         let concat = dbRecipiesResponse.concat(apiResponseee.data.results)
         let result = concat.slice(0, 9)
         return res.send(result)
-        console.log(result)
       })
       .catch(err => res.status(400).json({error: 'invalid name'})); 
   } 

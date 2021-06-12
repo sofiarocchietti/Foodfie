@@ -1,4 +1,9 @@
-.landing-container{
+.landing_container{
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
      background-image:
   /*   linear-gradient(
      
@@ -14,12 +19,17 @@
    width: 100vw;
    height: 100vh; 
    
-}
+} 
+
 
 .button_home {
-    
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 5s;
     background-image: linear-gradient(to right, #eacda3 0%, #d6ae7b  51%, #eacda3  100%);
-   
+
        margin: 10px;
        padding: 15px 45px;
        text-align: center;
@@ -27,10 +37,17 @@
        transition: 0.5s;
        background-size: 200% auto;
        color: white;            
-       box-shadow: 0 0 20px #eee;
+       box-shadow: 0 0 20px rgb(88, 86, 86);
        border-radius: 10px;
-       display: block;
-
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       position: fixed;
+       right: 652px;
+       bottom: 390px;
+       margin: 10px;
+       padding: 15px 45px;
+       width: 200px;
 }
 .button_home:hover {
     background-position: right center; /* change the direction of the change here */
@@ -40,9 +57,40 @@
 
   .link_text { 
     color: white;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.52);
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 40px;
+    text-shadow: 2px 2px 4px #000000;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 50px;
     text-decoration: none;
     max-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
    }
+
+   .welcome_text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: -300px;
+    opacity: 1;
+    color: white;
+    text-shadow: -1px 0 black, 5px 5px black, 1px 0 black, 0 5px black;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 100px;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 3s;
+    font-family: 'Lobster Two', cursive;
+   }
+
+   @keyframes fadeInOpacity {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+   
