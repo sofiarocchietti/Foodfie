@@ -7,10 +7,14 @@ const { API_KEY } = process.env
 
   async function getRecipeByName (req, res, next) {
   const {name} = req.query
-  console.log(name)
   try {
     const apiRecipes = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&query=${name}`)
-    const dbRecipes = await Recipe.findAll({where: {name: { [Op.iLike]: `%${name}%`}}})
+    const dbRecipes = await Recipe.findAll({
+      where: {name: 
+        { [Op.iLike]: `%${name}%`}
+      }, include: Diet
+    }
+    )
    if (dbRecipes.length === 0) {
        let result = apiRecipes.data.results.slice(0, 9)
        if (apiRecipes.data.results.length === 0) return res.status(404).send('Invalid search')
@@ -48,42 +52,14 @@ const { API_KEY } = process.env
       const dbRecipeId = await Recipe.findOne({
         where: {
           id: req.params.id
-        }
+        },
+        include: Diet
       })
       return res.send(dbRecipeId)
     }
   } catch(error) {
       next(error)
   } 
-   /* if (id.length < 35) {
-      const apiRecipes =  axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
-      apiRecipes.then(response => {
-      const apiResponse = response
-       let objectResponse = {
-        vegetarian: apiResponse.data.vegetarian,
-        vegan: apiResponse.data.vegan,
-        glutenFree: apiResponse.data.glutenFree,
-        title: apiResponse.data.title,
-        image: apiResponse.data.image,
-        diets: apiResponse.data.diets,
-        dishTypes: apiResponse.data.dishTypes,
-        summary: apiResponse.data.summary,
-        spoonacularScore: apiResponse.data.spoonacularScore,
-        healthScore: apiResponse.data.healthScore,
-        analyzedInstructions: apiResponse.data.analyzedInstructions
-      }
-      if(apiResponse) return res.send(objectResponse)
-    }).catch(err=> res.status(404).json({error: 'ID invalido'}))
-  } else {
-    const dbRecipeId = Recipe.findOne({
-      where: {
-        id: req.params.id
-      }, 
-      include: Diet
-    }).then(response => {
-      return res.send(response)
-    }).catch(err=> res.status(404).json({error: 'ID invalido'})); 
-  } */
 }
 
 async function postRecipe(req, res) {
