@@ -1,85 +1,96 @@
-import { GET_RECIPES, GET_RECIPES_DETAIL} from '../Actions/recipesActions';
+import { GET_RECIPES, GET_RECIPES_DETAIL, SEARCH_RECIPES, CREATE_RECIPE} from '../Actions/recipesActions';
 import { GET_DIETS, DIET_FILTER } from '../Actions/dietsActions';
-import { ORDER_BY } from '../Actions/orderActions';
-import { orderMinToMax, orderMaxToMin, orderAsc, orderDesc } from '../../../utils';
+import { ORDER_DESC_NAME, ORDER_LOWER_SCORE, ORDER_ASC_NAME, ORDER_HIGHER_SCORE, RESET  } from '../Actions/orderActions';
+
 
 const initialState = {
-    diets : [],
     recipes: [],
-    recipeById: {}
+    diets : [],
+    recipeById: [],
+    searchedRecipes: [],
+    createdRecipe: [],
+    filteredRecipes: [],
+    orderBy: "Select",
+    filterBy: "All"
 }
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
       //RECIPES:
-        case GET_RECIPES: {
+         case GET_RECIPES: {
           return {
             ...state,
-            recipes: action.payload,
+            recipes: Object.values(action.payload)
           }
         }
-        case GET_RECIPES_DETAIL: {
+         case GET_RECIPES_DETAIL: {
           return {
             ...state,
-           recipeById: action.payload,
+           recipeById: action.payload
+          }
+        }
+         case CREATE_RECIPE: {
+          return {
+            ...state,
+            createdRecipe: action.payload
+          }
+        }
+        case SEARCH_RECIPES : {
+          return {
+            ...state,
+            recipes: action.payload
           }
         }
         //DIETS: 
-        case GET_DIETS: {
-          let filteredDiets = action.payload.map((diet) => {
-            return diet.name;
-          })
-          return {
-            ...state,
-            diets: filteredDiets
-          }
+       case GET_DIETS:{
+        return{
+          ...state,
+          diets: action.payload
         }
+      }
         case DIET_FILTER: {
-          let dietFilter = [];
-          for(let i = 0; i < state.recipes.length; i++) {
-            const recipe = state.recipes[i]
-            for(let d = 0; d < state.recipes.length; i++) {
-              const diet = recipe.diets[d];
-              if( diet.name === action.payload) {
-                dietFilter.push(recipe)
-              }
-            }
-          }
+        return {
+          ...state,
+          filteredRecipes: action.payload.recipeDiet,
+          filterBy: action.payload.option
+        }
+      }
+        //ORDER:
+        case ORDER_ASC_NAME: {
           return {
             ...state,
-            recipes: [...dietFilter]
+            filteredRecipes: action.payload.orderedRecipes,
+            orderBy: action.payload.name
           }
         }
-        //ORDER:
-        case ORDER_BY: {
-          let order = [...state.recipes]
-
-          if (action.payload === 'asc') {
-            order.sort(orderAsc);
-            return {
-              ...state,
-              recipes: [...order],
-            };
-          } else if (action.payload === 'desc') {
-            order.sort(orderDesc);
-            return {
-              ...state,
-              recipes: [...order],
-            };
-          } else if (action.payload === 'max') {
-            order.sort(orderMaxToMin);
-            return {
-              ...state,
-              recipes: [...order],
-            };
-          } else if (action.payload === 'min') {
-            order.sort(orderMinToMax);
-            return {
-              ...state,
-              recipes: [...order],
-            };
-          } else {
-            return state;
+        case ORDER_DESC_NAME: {
+          return {
+            ...state,
+            filteredRecipes: action.payload.orderedRecipes,
+            orderBy: action.payload.name
+          }
+        }
+        case ORDER_HIGHER_SCORE: {
+          return {
+            ...state,
+            filteredRecipes: action.payload.orderedRecipes,
+            orderBy: action.payload.name
+          }
+        }
+        case ORDER_LOWER_SCORE: {
+          return {
+            ...state,
+            filteredRecipes: action.payload.orderedRecipes,
+            orderBy: action.payload.name
+          }
+        }
+        case RESET: {
+          return {
+            ...state,
+            recipes: [],
+            filteredRecipes: [],
+            orderBy: "Select",
+            filterBy: "All"
           }
         }
         default:
