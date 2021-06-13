@@ -1,0 +1,21 @@
+.container-nav{
+    background-image: linear-gradient(to right, #eacda3 0%, #d6ae7b  51%, #eacda3  100%);
+    box-shadow: 0 0 20px rgb(88, 86, 86);
+    height: 90px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.nav_logo{
+    position: fixed;
+    left: 30px;
+    top: -10px;
+    max-height: 100px;
+}
