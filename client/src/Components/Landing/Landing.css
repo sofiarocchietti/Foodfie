@@ -69,7 +69,7 @@
     text-shadow: -1px 0 black, 5px 5px black, 1px 0 black, 0 5px black;
     text-shadow: 2px 2px 4px #000000;
     font-size: 100px;
-    animation-name: fadeInOpacity;
+    animation-name: fadeInOpacity; 
     animation-iteration-count: 1;
     animation-timing-function: ease-in;
     animation-duration: 3s;
