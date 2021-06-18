@@ -1,17 +1,17 @@
 const Sequelize = require('sequelize');
 const { Op } = require("sequelize");
-const { Recipe, Diet } = require('../db')
-const { v4: uuidv4 } = require('uuid')
-const axios = require('axios').default
-const { API_KEY } = process.env
+const { Recipe, Diet } = require('../db');
+const { v4: uuidv4 } = require('uuid');
+const axios = require('axios').default;
+const { API_KEY } = process.env;
 
   async function getRecipeByName (req, res, next) {
-  const {name} = req.query
+  const {title} = req.query
   try {
-    const apiRecipes = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&query=${name}`)
+    const apiRecipes = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&query=${title}`)
     const dbRecipes = await Recipe.findAll({
-      where: {name: 
-        { [Op.iLike]: `%${name}%`}
+      where: {title: 
+        { [Op.iLike]: `%${title}%`}
       }, include: Diet
     }
     )
@@ -20,7 +20,25 @@ const { API_KEY } = process.env
        if (apiRecipes.data.results.length === 0) return res.status(404).send('Invalid search')
        return res.send(result) 
    } else {
-      let totalRecipes = dbRecipes.concat(apiRecipes.data.results)
+    let arrayResponse = []
+    for(let i = 0; i < dbRecipes.length; i++) {
+      let dietsMap = []
+      dbRecipes[i].diets.map((diet) => (
+        dietsMap.push(diet.name)
+      )
+      )
+      let objectResponseDB = {
+        id: dbRecipes[i].id,
+        title: dbRecipes[i].title,
+        summary: dbRecipes[i].summary,
+        spoonacularScore: dbRecipes[i].spoonacularScore,
+        healthScore: dbRecipes[i].healthScore,
+        analyzedInstructions: dbRecipes[i].analyzedInstructions,
+        diets: dietsMap
+      }
+    arrayResponse.push(objectResponseDB)
+  } 
+      let totalRecipes = arrayResponse.concat(apiRecipes.data.results)
       let totalRecipesConcat = totalRecipes.slice(0,9)
      return res.send(totalRecipesConcat)
    }
@@ -34,8 +52,16 @@ const { API_KEY } = process.env
    try {
     if (id.length < 35) {
       const apiRecipes = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`)
-      let objectResponse = {
-        vegetarian: apiRecipes.data.vegetarian,
+        let analyzedInstructionsMap = []
+          apiRecipes.data.analyzedInstructions.map((inst) => (
+           inst.steps?.map((s) => (
+             analyzedInstructionsMap.push(s.step)
+           ))
+        ))
+        console.log(apiRecipes.data.analyzedInstructions.steps)
+        let objectResponse = {
+          id: apiRecipes.data.id, 
+          vegetarian: apiRecipes.data.vegetarian,
           vegan: apiRecipes.data.vegan,
           glutenFree: apiRecipes.data.glutenFree,
           title: apiRecipes.data.title,
@@ -45,9 +71,10 @@ const { API_KEY } = process.env
           summary: apiRecipes.data.summary,
           spoonacularScore: apiRecipes.data.spoonacularScore,
           healthScore: apiRecipes.data.healthScore,
-          analyzedInstructions: apiRecipes.data.analyzedInstructions
+          analyzedInstructions: analyzedInstructionsMap
       }
       if(apiRecipes) return res.send(objectResponse)
+      
     } else {
       const dbRecipeId = await Recipe.findOne({
         where: {
@@ -55,31 +82,79 @@ const { API_KEY } = process.env
         },
         include: Diet
       })
-      return res.send(dbRecipeId)
+      let dietsMap = []
+      dbRecipeId.diets.map((diet) => (
+        dietsMap.push(diet.name)
+      )
+      )
+      let objectResponse = {
+          id: dbRecipeId.id,
+          title: dbRecipeId.title,
+          summary: dbRecipeId.summary,
+          spoonacularScore: dbRecipeId.spoonacularScore,
+          healthScore: dbRecipeId.healthScore,
+          diets: dietsMap,
+          analyzedInstructions: dbRecipeId.analyzedInstructions
+      }
+      
+      if(!dbRecipeId) return res.status(400).send('Invalid ID')
+      return res.send(objectResponse)
     }
   } catch(error) {
       next(error)
   } 
 }
 
+async function getRecipes(req,res, next) {
+  try {
+    const getRecipes = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)
+    const dbRecipes = await Recipe.findAll({
+      include: Diet
+    }); 
+    if(dbRecipes.length === 0) return res.send(getRecipes.data)
+    let arrayResponse = [];
+  
+    for(let j = 0; j < dbRecipes.length; j++) {
+        let dietsMap = []
+        dbRecipes[j].diets.map((diet) => (
+          dietsMap.push(diet.name)
+        ))
+        let objectResponseDB = {
+          id: dbRecipes[j].id, 
+          title: dbRecipes[j].title,
+          summary: dbRecipes[j].summary,
+          spoonacularScore: dbRecipes[j].spoonacularScore,
+          healthScore: dbRecipes[j].healthScore,
+          analyzedInstructions: dbRecipes[j].analyzedInstructions,
+          diets: dietsMap
+        }
+      arrayResponse.push(objectResponseDB)
+    } 
+    const concatRecipes = arrayResponse.concat(getRecipes.data.results)
+    return res.send(concatRecipes)
+  } catch(error) {
+    next(error)
+  }
+}
+
 async function postRecipe(req, res) {
-const { name, summary, spoonacularScore, healthScore, analyzedInstructions, diets } = req.body; 
+const { title, summary, spoonacularScore, healthScore, analyzedInstructions, diets } = req.body; 
 const id = uuidv4();
-  if (!name || !summary) return res.status(404).send('mandame los datos papá')
+  if (!title || !summary) return res.status(404).json({})
     const newRecipe = await Recipe.create({
             id: id, 
-            name: req.body.name,
+            title: req.body.title,
             summary: req.body.summary,
             spoonacularScore: req.body.spoonacularScore,
             healthScore: req.body.healthScore,
-            analyzedInstructions: req.body.analyzedInstructions 
+            analyzedInstructions: [req.body.analyzedInstructions]
     }) 
     for(let i = 0; i < diets.length; i++) {
       await newRecipe.addDiet(diets[i], {through: 'recipe_diet'})
     }
     const recipes_diets = await Recipe.findOne({
       where: {
-        name: req.body.name
+        title: req.body.title
       },
       include: Diet
     })
@@ -90,6 +165,7 @@ const id = uuidv4();
 
 
 module.exports = {
+  getRecipes,
   getRecipeByName,
   getRecipeById, 
   postRecipe}

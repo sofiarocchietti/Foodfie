@@ -1,0 +1,21 @@
+.card_container{
+    margin-top: 1.5rem;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-evenly;
+    justify-content: space-evenly;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.image img {
+    align-items: flex-end;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.card_title{
+    font-size: 30px;
+}

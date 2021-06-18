@@ -6,7 +6,7 @@ import { ORDER_DESC_NAME, ORDER_LOWER_SCORE, ORDER_ASC_NAME, ORDER_HIGHER_SCORE,
 const initialState = {
     recipes: [],
     diets : [],
-    recipeById: [],
+    recipeById: {},
     searchedRecipes: [],
     createdRecipe: [],
     filteredRecipes: [],
@@ -16,83 +16,82 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
     switch (action.type) {
-      //RECIPES:
-         case GET_RECIPES: {
-          return {
-            ...state,
-            recipes: Object.values(action.payload)
-          }
-        }
-         case GET_RECIPES_DETAIL: {
-          return {
-            ...state,
-           recipeById: action.payload
-          }
-        }
-         case CREATE_RECIPE: {
-          return {
-            ...state,
-            createdRecipe: action.payload
-          }
-        }
-        case SEARCH_RECIPES : {
+      //RECIPES
+         case GET_RECIPES: 
           return {
             ...state,
             recipes: action.payload
           }
-        }
+        
+         case GET_RECIPES_DETAIL: 
+          return {
+            ...state,
+           recipeById: action.payload
+          }
+        
+         case CREATE_RECIPE: 
+          return {
+            ...state,
+            createdRecipe: action.payload
+          }
+        
+        case SEARCH_RECIPES : 
+          return {
+            ...state,
+            searchedRecipes: action.payload
+          }
+        
         //DIETS: 
-       case GET_DIETS:{
+       case GET_DIETS:
         return{
           ...state,
           diets: action.payload
         }
-      }
-        case DIET_FILTER: {
+      
+        case DIET_FILTER: 
         return {
-          ...state,
+          ...state,  
           filteredRecipes: action.payload.recipeDiet,
-          filterBy: action.payload.option
+          filterBy: action.payload.type
         }
-      }
+      
         //ORDER:
-        case ORDER_ASC_NAME: {
+        case ORDER_ASC_NAME: 
           return {
             ...state,
             filteredRecipes: action.payload.orderedRecipes,
             orderBy: action.payload.name
           }
-        }
-        case ORDER_DESC_NAME: {
+        
+        case ORDER_DESC_NAME: 
           return {
             ...state,
             filteredRecipes: action.payload.orderedRecipes,
             orderBy: action.payload.name
           }
-        }
-        case ORDER_HIGHER_SCORE: {
+        
+        case ORDER_HIGHER_SCORE: 
           return {
             ...state,
             filteredRecipes: action.payload.orderedRecipes,
             orderBy: action.payload.name
           }
-        }
-        case ORDER_LOWER_SCORE: {
+        
+        case ORDER_LOWER_SCORE: 
           return {
             ...state,
             filteredRecipes: action.payload.orderedRecipes,
             orderBy: action.payload.name
           }
-        }
-        case RESET: {
+        
+        case RESET: 
           return {
             ...state,
-            recipes: [],
             filteredRecipes: [],
             orderBy: "Select",
             filterBy: "All"
           }
-        }
+        
         default:
          return state 
     }

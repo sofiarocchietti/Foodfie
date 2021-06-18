@@ -16,7 +16,7 @@ Paso a paso */
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('recipe', { //Los modelos ya estan hechos crack 
-    name: {
+    title: {
       type: DataTypes.STRING, 
       allowNull: false,
     },
@@ -36,8 +36,11 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER
     },
     analyzedInstructions: {
-      type: DataTypes.TEXT
-    } 
+      type: DataTypes.ARRAY(DataTypes.TEXT)
+    }, 
+    /* image : {
+      type: DataTypes.STRING
+    } */
   });
 
 };
