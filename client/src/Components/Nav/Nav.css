@@ -1,4 +1,9 @@
 .container-nav{
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
     background-image: linear-gradient(to right, #eacda3 0%, #d6ae7b  51%, #eacda3  100%);
     box-shadow: 0 0 20px rgb(88, 86, 86);
     height: 90px;
@@ -14,8 +19,101 @@
 }
 
 .nav_logo{
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
     position: fixed;
     left: 30px;
     top: -10px;
     max-height: 100px;
 }
+
+.box_search{
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    transition: transform 250ms;
+    right: 680px;
+    bottom: 658px;
+    width: 280px;
+    height: 30px;
+    border-radius: 7px;
+    box-shadow: 0 2px 5px rgb(90, 88, 88);
+    background-image: linear-gradient(to right, #f0d9b9 0%, #d6b891  51%, #ecd9bd  100%);
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    font-size: 15px;
+    text-align: center;
+}
+
+.box_search:hover{
+    background-image: linear-gradient(to right, #f5d49f 0%, #dba359  51%, #ebbf7d  100%);
+    transform: translateY(-5px);
+}
+
+.search_button {
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
+    position: fixed;
+    right: 640px;
+    bottom: 658px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    border-radius: 7px;
+    background-color: #ecd9bd;
+    transition: transform 250ms;
+}
+
+.search_button:hover{
+    background-color: #ebbf7d;
+    transform: translateY(-5px);
+}
+
+.create_button{
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
+    position: fixed;
+    right: 250px;
+    bottom: 658px;
+    width: 150px;
+    height: 35px;
+    cursor: pointer;
+    border-radius: 7px;
+    font-family: 'Fredoka One', cursive;
+    cursor: pointer;
+    background-image: linear-gradient(to right, #f0d9b9 0%, #d6b891  51%, #ecd9bd  100%);
+    transition: transform 250ms;
+    font-size: 15px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgb(90, 88, 88);
+}
+
+.create_button:hover{
+    background-image: linear-gradient(to right, #f5d49f 0%, #dba359  51%, #ebbf7d  100%);
+    transform: translateY(-5px);
+}
+
+@keyframes fadeInOpacity {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+

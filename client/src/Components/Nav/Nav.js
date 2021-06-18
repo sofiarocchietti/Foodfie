@@ -1,21 +1,30 @@
-import {React, useState} from 'react'
-import { NavLink } from 'react-router-dom';
+import React, {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink} from 'react-router-dom';
 import './Nav.css'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faSearch} from '@fortawesome/free-solid-svg-icons'
+import { searchRecipes } from '../../Redux/Actions/recipesActions';
 import logo from '../../img/logo.png'
 
 export default function Nav() {
-    const [input, setInput] = useState({
-        search: ''
-    });
-    const handleInputChange = function(e) {
-        //Se fija en quien dispara el cambio y al ser dinámico setea una propiedad u otra.
-        setInput({
-          ...input,   //Traete todo el objeto y solo modifica el valor que se indique. 
-          [e.target.name]: e.target.value //El "e" es el objeto que se dispara con el evento. El e.target devuelve lo que disparó el evento, la propiedad nombre de este objeto hace referencia a lo que yo le pase abajo, el value es lo que tengo escrito. ENTRE CORCHETES PORQUE ES UNA PROPIEDAD DINAMICA DEL OBJETO E. 
-        });
+    const dispatch = useDispatch(); 
+    const {searchedRecipes} = useSelector((state) => state)
+    const [title, setTitle] = useState("");
+    let search = []; 
+
+    if (searchedRecipes.length !== 0) {
+        for (let i = 0; i < searchedRecipes.length; i++) {
+            search.push(searchedRecipes[i])
+        }
     }
+   
+    /* useEffect(() => {
+        dispatch(getRecipes())
+    }, [title]) */
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setTitle("")
        }
 
     return (
@@ -26,12 +35,28 @@ export default function Nav() {
                 alt='Logo'
                />
                </NavLink>
-           <form onSubmit={handleSubmit}>
                <div className='form'> 
-               <input name='search' onChange={handleInputChange} value={input.search}/>
-               <button type = "submit">search</button>
-           </div>
+           <form onSubmit={((e) => handleSubmit(e))}>
+               <input 
+               className="box_search"
+               name='search'  
+               onChange={(e) => setTitle(e.target.value)}
+               placeholder="What are you going to eat today?"
+               value={title}
+               type="text"/>
+                  <NavLink to={`/home/${title}`}> 
+                   <button className="search_button" type="submit" onClick= {(e) => dispatch(searchRecipes(title))}>
+                       <FontAwesomeIcon icon={faSearch}/>
+                       </button>
+              </NavLink> 
+                <NavLink to={`/addRecipe`}>
+                <button className="create_button" type="submit">
+                       Create Recipe
+                       </button>
+                </NavLink>
            </form>
+           </div>
+         {/*  <DisplayRecipes searchedRecipes={search}/>   */}
         </div>
     )
 }
