@@ -1,29 +1,25 @@
 import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink} from 'react-router-dom';
+import { NavLink, Link} from 'react-router-dom';
 import './Nav.css'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
-import { searchRecipes } from '../../Redux/Actions/recipesActions';
+import { getRecipes, searchRecipes } from '../../Redux/Actions/recipesActions';
+import { reset } from '../../Redux/Actions/orderActions';
 import logo from '../../img/logo.png'
+import { getDiets } from '../../Redux/Actions/dietsActions';
 
 export default function Nav() {
     const dispatch = useDispatch(); 
-    const {searchedRecipes} = useSelector((state) => state)
     const [title, setTitle] = useState("");
-    let search = []; 
 
-    if (searchedRecipes.length !== 0) {
-        for (let i = 0; i < searchedRecipes.length; i++) {
-            search.push(searchedRecipes[i])
-        }
+    const handleChange = (e) => {
+        setTitle(e.target.value);
     }
-   
-    /* useEffect(() => {
-        dispatch(getRecipes())
-    }, [title]) */
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        dispatch(searchRecipes(title))
         setTitle("")
        }
 
@@ -33,6 +29,9 @@ export default function Nav() {
                 className='nav_logo'
                 src= {logo}
                 alt='Logo'
+                onClick={(e) => dispatch(reset())}
+                onClick={(e) => dispatch(getRecipes())}
+                onClick={(e) => dispatch(getDiets())}
                />
                </NavLink>
                <div className='form'> 
@@ -40,23 +39,23 @@ export default function Nav() {
                <input 
                className="box_search"
                name='search'  
-               onChange={(e) => setTitle(e.target.value)}
+               onChange={(e) => handleChange(e)}
                placeholder="What are you going to eat today?"
                value={title}
                type="text"/>
-                  <NavLink to={`/home/${title}`}> 
-                   <button className="search_button" type="submit" onClick= {(e) => dispatch(searchRecipes(title))}>
+                   
+                   <button className="search_button" type="submit">
                        <FontAwesomeIcon icon={faSearch}/>
                        </button>
-              </NavLink> 
-                <NavLink to={`/addRecipe`}>
+              
+
+           </form>
+           </div>
+           <NavLink to={`/addRecipe`}>
                 <button className="create_button" type="submit">
                        Create Recipe
                        </button>
                 </NavLink>
-           </form>
-           </div>
-         {/*  <DisplayRecipes searchedRecipes={search}/>   */}
         </div>
     )
 }

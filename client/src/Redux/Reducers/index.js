@@ -35,10 +35,12 @@ function rootReducer(state = initialState, action) {
             createdRecipe: action.payload
           }
         
-        case SEARCH_RECIPES : 
+        case SEARCH_RECIPES :
+          console.log(action.payload) 
           return {
+
             ...state,
-            searchedRecipes: action.payload
+            recipes: action.payload
           }
         
         //DIETS: 
@@ -87,6 +89,7 @@ function rootReducer(state = initialState, action) {
         case RESET: 
           return {
             ...state,
+            recipes: [], 
             filteredRecipes: [],
             orderBy: "Select",
             filterBy: "All"

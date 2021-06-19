@@ -34,6 +34,7 @@ const { API_KEY } = process.env;
         spoonacularScore: dbRecipes[i].spoonacularScore,
         healthScore: dbRecipes[i].healthScore,
         analyzedInstructions: dbRecipes[i].analyzedInstructions,
+        image: dbRecipes[i].image, 
         diets: dietsMap
       }
     arrayResponse.push(objectResponseDB)
@@ -94,7 +95,8 @@ const { API_KEY } = process.env;
           spoonacularScore: dbRecipeId.spoonacularScore,
           healthScore: dbRecipeId.healthScore,
           diets: dietsMap,
-          analyzedInstructions: dbRecipeId.analyzedInstructions
+          analyzedInstructions: dbRecipeId.analyzedInstructions,
+          image: dbRecipeId.image
       }
       
       if(!dbRecipeId) return res.status(400).send('Invalid ID')
@@ -126,7 +128,8 @@ async function getRecipes(req,res, next) {
           spoonacularScore: dbRecipes[j].spoonacularScore,
           healthScore: dbRecipes[j].healthScore,
           analyzedInstructions: dbRecipes[j].analyzedInstructions,
-          diets: dietsMap
+          diets: dietsMap,
+          image: dbRecipes[j].image 
         }
       arrayResponse.push(objectResponseDB)
     } 
@@ -138,7 +141,7 @@ async function getRecipes(req,res, next) {
 }
 
 async function postRecipe(req, res) {
-const { title, summary, spoonacularScore, healthScore, analyzedInstructions, diets } = req.body; 
+const { title, summary, spoonacularScore, healthScore, analyzedInstructions, image, diets } = req.body; 
 const id = uuidv4();
   if (!title || !summary) return res.status(404).json({})
     const newRecipe = await Recipe.create({
@@ -147,6 +150,7 @@ const id = uuidv4();
             summary: req.body.summary,
             spoonacularScore: req.body.spoonacularScore,
             healthScore: req.body.healthScore,
+            image: req.body.image, 
             analyzedInstructions: [req.body.analyzedInstructions]
     }) 
     for(let i = 0; i < diets.length; i++) {

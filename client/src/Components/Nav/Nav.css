@@ -30,6 +30,11 @@
     max-height: 100px;
 }
 
+.nav_logo:hover{
+    transform: scale(1.1);
+    transition: transform .5s ease;
+}
+
 .box_search{
     opacity: 1;
 	animation-name: fadeInOpacity;
@@ -108,12 +113,5 @@
     transform: translateY(-5px);
 }
 
-@keyframes fadeInOpacity {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+
 

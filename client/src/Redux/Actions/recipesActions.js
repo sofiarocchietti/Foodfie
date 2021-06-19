@@ -1,4 +1,3 @@
-import axios from "axios";
 export const GET_RECIPES = 'GET_RECIPES';
 export const GET_RECIPES_DETAIL = 'GET_RECIPES_DETAIL';
 export const SEARCH_RECIPES = 'SEARCH_RECIPES'; 
@@ -24,7 +23,9 @@ export function getRecipeDetail(id) {
         .then((response) => response.json())
         .then((json) => {
           console.log(id)
-          dispatch({ type: GET_RECIPES_DETAIL, payload: json });
+          dispatch({ 
+            type: GET_RECIPES_DETAIL, 
+            payload: json });
         })
     }
   }

@@ -15,7 +15,7 @@ function App() {
     <div className="App">
        <Route exact path='/' component={Landing}/>
        <Route exact path='/home' component={Home}/>
-       {/* <Route exact path='/results/:title' component={SearchRecipes}/> */}
+     {/*  <Route path='/home/:title' component={SearchRecipes}/>  */}
        <Route path='/recipe/:id' component={RecipeDetail} />
        <Route path= '/home' component={Nav}/>
       {/*  <Route path= '/addRecipe' component= {Nav}/> */}

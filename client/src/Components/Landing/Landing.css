@@ -1,4 +1,5 @@
 .landing_container{
+  
   opacity: 1;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;

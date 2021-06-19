@@ -38,9 +38,9 @@ module.exports = (sequelize) => {
     analyzedInstructions: {
       type: DataTypes.ARRAY(DataTypes.TEXT)
     }, 
-    /* image : {
+    image : {
       type: DataTypes.STRING
-    } */
+    } 
   });
 
 };

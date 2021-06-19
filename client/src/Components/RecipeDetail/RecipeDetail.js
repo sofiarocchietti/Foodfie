@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRecipeDetail } from '../../Redux/Actions/recipesActions';
+import recipeImage from '../../img/recipe.jpg'
 
 function RecipeDetail({match}) {
 
@@ -26,7 +27,7 @@ function RecipeDetail({match}) {
         <h1>{recipe.title} </h1>
         <div className="details">
           <figure className="image">
-            <img src={recipe.image} alt="fotuli" />
+            <img src={recipe.image? recipe.image : `${recipeImage}` } alt="fotuli" />
           </figure>
           <div className="text">
             <div className="diets">

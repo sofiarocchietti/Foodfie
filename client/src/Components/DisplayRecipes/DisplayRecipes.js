@@ -2,13 +2,13 @@ import React from 'react';
 import './DisplayRecipes.css';
 import RecipeContainer from '../RecipeContainer/RecipeContainer.js';
 
-function DisplayRecipes({recipes}) {
+function DisplayRecipes(props) {
       
-   console.log('display', recipes.length) 
+   console.log('display', props.recipes.length) 
  
     return (
         <div className='display_recipes'>
-          {recipes.map((recipe, index) => 
+          {props.recipes.map((recipe, index) => 
           (
             <RecipeContainer index={index} recipe={recipe}/>
           ))}
