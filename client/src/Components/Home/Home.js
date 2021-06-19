@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRecipes } from '../../Redux/Actions/recipesActions';
@@ -9,6 +9,7 @@ import DisplayRecipes from '../DisplayRecipes/DisplayRecipes';
 import SearchRecipes from '../SearchRecipes/SearchRecipes';
 import Nav from '../Nav/Nav';
 import './Home.css'
+import { getDiets } from '../../Redux/Actions/dietsActions';
 
 function Home() {
   const {recipes} = useSelector((state) => state);
@@ -16,25 +17,29 @@ function Home() {
   const {searchedRecipes} = useSelector((state) => state)
   const {filterBy} = useSelector((state) => state);
   const {orderBy} = useSelector((state) => state);
-  let allRecipes;
 
-
+   const [allRecipes, setAllRecipes] = useState([])
     const [page, setPage] = useState(1);
     const [recipesPerPage] = useState(9);
 
- const dispatch = useDispatch()
-    /* useEffect(() => {
-        if(recipes.length > 0) return  
-       dispatch(getRecipes())
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []); */
-     
 
-      if(filterBy === 'All' && orderBy === 'Select') {
-           allRecipes = recipes.slice()
-      } else {
-           allRecipes = filteredRecipes.slice()
-      }
+
+  const dispatch = useDispatch() 
+    useEffect(() => {
+       if(filterBy === 'All' && orderBy === 'Select') {
+        setAllRecipes(recipes.results? recipes.results.slice() : recipes.slice())
+    } else {
+        setAllRecipes(filteredRecipes.slice())
+    }
+       // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [filterBy, orderBy, recipes]);  
+
+     /*  useEffect(() => {
+        dispatch(getRecipes())
+        dispatch(getDiets())
+      },[]) */
+     
+      console.log(recipes)
       // Pagination
 
   let indexLastPage = page * recipesPerPage;
@@ -60,28 +65,17 @@ function Home() {
           <>
           <Nav /> 
             <FilterOptions />
+            <DisplayRecipes recipes={currentPage}/>
             <Pagination
               recipePerPage={recipesPerPage} // 9
               totalRecipes={allRecipes.length} 
               paginate={paginate} // function
             />
-            <DisplayRecipes recipes={currentPage} />
-            {/* <SearchRecipes recipes={searchedRecipes} />  */}
           </>
       </div>
     </div>
     )
 }
-
-
-/* const mapStateToProps = (state) => {
-    return {
-        recipes: state.recipes,
-        filteredRecipes: state.filteredRecipes,
-        filterBy: state.filterBy,
-        orderBy: state.orderBy
-    }
-} */
 
 
 export default Home; 

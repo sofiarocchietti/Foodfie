@@ -23,6 +23,7 @@ export function AddRecipe () {
     spoonacularScore: 0,
     healthScore: 0, 
     analyzedInstructions: '',
+    image: '',
     diets: []
  }); 
 
@@ -48,19 +49,38 @@ export function AddRecipe () {
     );
   }
 }
-
+const handleCheckbox = (e) => {
+  if (e.target.checked) {
+    setInput({
+      ...input,
+      diets: [...input.diets, e.target.value],
+    });
+  } else {
+    setInput({
+      ...input,
+      diets: input.diets.filter((diet) => diet !== e.target.value),
+    });
+  }
+};
+ 
  const handleSubmit = (e) => {
   e.preventDefault()
-  dispatch(createRecipe(input))
-  setInput({
-    title: '',
-    summary: '',
-    spoonacularScore: 0,
-    healthScore: 0, 
-    analyzedInstructions: '',
-    diets: []
-    })
- }
+    if(Object.keys(errors).length === 0)
+    {dispatch(createRecipe(input))
+      alert("Your delicious recipe has been created!")
+    setInput({
+      title: '',
+      summary: '',
+      spoonacularScore: 0,
+      healthScore: 0, 
+      analyzedInstructions: '',
+      image: '', 
+      diets: []
+      })
+    } else {
+      alert("Try again!")
+    }
+}
  
   return (
     <div className="add_recipe_container">
@@ -109,6 +129,7 @@ export function AddRecipe () {
             {errors.spoonacularScore && (
               <p className="danger">{errors.spoonacularScore}</p>
                 )} 
+                </div> 
             <div>
             <label className="text_title_form">Health Score</label>
             <input
@@ -134,6 +155,12 @@ export function AddRecipe () {
               value={input.analyzedInstructions}
             ></textarea>
           </div>
+          <div>
+              <label>Image</label>
+              <input type="url" name="image" value={input.image} onChange={handleInputChange} />
+                   {/*  <label>Enter an image URL here! (optional)</label>
+                    <input type="url" name="img" placeholder="http://example.com" value={input.image} onChange={handleInputChange}/> */}
+                </div>
           <div className="diets_checkbox">
           <label className="text_title_form">Choose your diets</label>
             <div className="map_diets">
@@ -144,14 +171,14 @@ export function AddRecipe () {
                     type="checkbox"
                     name="diets"
                     value={diet.id}
-                  ></input>
+                    onChange={handleCheckbox}
+                  />
                   <label name={diet}>{diet.name}</label>
                 </span>
               )
               }
               </div> 
             </div>
-          </div>
           <button className="submitForm" type="submit">
           Submit
         </button>

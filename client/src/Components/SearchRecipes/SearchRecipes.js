@@ -17,8 +17,12 @@ function SearchRecipes({props, match}) {
     const {orderBy} = useSelector(state => state );
     let allRecipes;
 
-    filterBy === "All" && orderBy === "Select"
-    ? (allRecipes = recipes.slice()) : (allRecipes = filteredRecipes.slice());
+    if(filterBy === 'All' && orderBy === 'Select') {
+        allRecipes = recipes.results? recipes.results.slice() : recipes.slice()
+   } else {
+        allRecipes = filteredRecipes.slice()
+   }
+
 
     //Setear Loading
 
@@ -27,11 +31,11 @@ function SearchRecipes({props, match}) {
     //Use effect, uso reset? Agregar dependencia de name
 
     useEffect(()=> {
-        dispatch(searchRecipes(match.params.title));
+        dispatch(searchRecipes(props.recipe.title));
         dispatch(reset())
         setLoading(false);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [recipes.title]); 
+    }, [props.recipe.title]); 
 
     return (
         <>
