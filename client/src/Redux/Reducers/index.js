@@ -89,7 +89,6 @@ function rootReducer(state = initialState, action) {
         case RESET: 
           return {
             ...state,
-            recipes: [], 
             filteredRecipes: [],
             orderBy: "Select",
             filterBy: "All"

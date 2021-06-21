@@ -14,7 +14,7 @@ function Pagination({ recipePerPage, totalRecipes, paginate }) {
         {pages.map((num) => (
             <button
               onClick={(e) => paginate(e, num)}
-              className="page-link">
+              className="page_button">
               {num}
             </button>
         ))}

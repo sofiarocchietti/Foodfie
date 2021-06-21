@@ -4,7 +4,6 @@ import Landing from './Components/Landing/Landing';
 import AddRecipe from './Components/AddRecipe/AddRecipe';
 import Home from './Components/Home/Home';
 import Nav from './Components/Nav/Nav';
-import SearchRecipes from './Components/SearchRecipes/SearchRecipes';
 import RecipeDetail from './Components/RecipeDetail/RecipeDetail';
 import './App.css';
 
@@ -15,10 +14,10 @@ function App() {
     <div className="App">
        <Route exact path='/' component={Landing}/>
        <Route exact path='/home' component={Home}/>
-     {/*  <Route path='/home/:title' component={SearchRecipes}/>  */}
        <Route path='/recipe/:id' component={RecipeDetail} />
-       <Route path= '/home' component={Nav}/>
-      {/*  <Route path= '/addRecipe' component= {Nav}/> */}
+       <Route path= '/home' component={Nav}/> 
+       <Route path= '/recipe/:id' component={Nav}/> 
+       <Route path= '/addRecipe' component= {Nav}/> 
        <Route exact path='/addRecipe' component={AddRecipe}/>
     </div>
   );
