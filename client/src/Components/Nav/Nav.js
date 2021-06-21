@@ -31,7 +31,6 @@ export default function Nav() {
                 alt='Logo'
                 onClick={(e) => dispatch(reset())}
                 onClick={(e) => dispatch(getRecipes())}
-                onClick={(e) => dispatch(getDiets())}
                />
                </NavLink>
                <div className='form'> 

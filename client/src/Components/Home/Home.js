@@ -6,7 +6,7 @@ import { reset } from '../../Redux/Actions/orderActions';
 import Pagination  from '../Pagination/Pagination';
 import FilterOptions from '../FilterOptions/FilterOptions';
 import DisplayRecipes from '../DisplayRecipes/DisplayRecipes';
-import SearchRecipes from '../SearchRecipes/SearchRecipes';
+
 import Nav from '../Nav/Nav';
 import './Home.css'
 import { getDiets } from '../../Redux/Actions/dietsActions';
@@ -14,7 +14,6 @@ import { getDiets } from '../../Redux/Actions/dietsActions';
 function Home() {
   const {recipes} = useSelector((state) => state);
   const {filteredRecipes} = useSelector((state) => state);
-  const {searchedRecipes} = useSelector((state) => state)
   const {filterBy} = useSelector((state) => state);
   const {orderBy} = useSelector((state) => state);
 
@@ -58,9 +57,6 @@ function Home() {
 
     return (
         <div className="homePage">
-      <div className="title">
-        <h2>All Recipes</h2>
-      </div>
       <div className="container">
           <>
           <Nav /> 

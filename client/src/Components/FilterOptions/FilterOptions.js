@@ -25,7 +25,7 @@ function FilterOptions() {
       <div className="filter_component">
       <div className="filter_by">
         <p>CHOOSE YOUR DIET</p>
-        <select onChange={(e) => dispatch(dietFilter(e.target.value))}>
+        <select id="select_id" onChange={(e) => dispatch(dietFilter(e.target.value))}>
         <option default value ="All">All</option>
            {diets.map((diet) => (
             <option value={diet.name}>{diet.name}</option>
@@ -33,7 +33,7 @@ function FilterOptions() {
         </select>
       </div>
       <div className="filter_order">
-        <p>Order</p>
+        <p>ORDER BY</p>
         <select onChange={(e) => handleFilters(e)}>
           <option default>All</option>
           <option value="asc_name">Ascending (A-Z)</option>

@@ -1,20 +1,27 @@
 .card_container{
-    margin-top: 1.5rem;
+    animation: fadeIn ease 5s;
+    -webkit-animation: fadeIn ease 5s;
+    -moz-animation: fadeIn ease 5s;
+    -o-animation: fadeIn ease 5s;
+    -ms-animation: fadeIn ease 5s;
+    margin-top: 160px;
    position: relative;
     display: block;
-    width: 22.5rem;
-    height: 30rem;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 360px;
+    height: 480px;
     text-align: center;
     background-color: hsla(0,0%,94.1%,.8);
-    border-radius: 1rem;
-    margin: 2rem;
-    border: .1rem solid hsla(0,0%,100%,.4);
+    border-radius: 16px;
+    margin: 32px;
+    border: 1.6px solid hsla(0,0%,100%,.4);
     color: #464646;
-    box-shadow: 0.2rem 0.2rem 1rem rgb(20 20 20 / 80%); 
+    box-shadow: 3px 3px 16px rgb(20 20 20 / 80%); 
 }
  
 .image img {
-   
     display: block;
     position: absolute;
     top: 90px;
@@ -24,6 +31,7 @@
     width: 250px;
     object-fit: cover;
     object-position: center center;
+    box-shadow: 3px 3px 5px rgb(20 20 20 / 80%);
 }
 
 .card_title{
@@ -42,33 +50,89 @@
     text-align: justify;
     font-family: 'Fredoka One', cursive;
     display: flex;
-    align-items: flex-end;
-    position: absolute;
-    bottom: 80px; 
-    text-align: justify;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-justify-content: space-evenly;
-    justify-content: space-evenly;
-    -webkit-align-items: center;
+    justify-content: center;
     align-items: center;
-    -webkit-flex-wrap: wrap;
+    position: absolute;
+    bottom: 50px;
+    margin: 10px;
     flex-wrap: wrap;
-    margin: .5rem auto;
+    -webkit-justify-content: space-evenly;
+    -webkit-align-items: center;
+    -webkit-flex-wrap: wrap;
+    
 }
 
 .diets_card span{
     font-size: 15px;
-    margin: .2rem;
-    padding: .2rem .3rem;
-    border-radius: .3rem;
-    
+    margin: 0.5px;
+    padding: 0px 4px;
+    margin-right: 5px;
+    margin-bottom: 7px;
+    border-radius: 4px;
+    background-color: #f0d9b9;
+    box-shadow: 3px 3px 5px rgb(20 20 20 / 80%);
+
 }
 
 .button_card{
     font-family: 'Fredoka One', cursive;
+    background-image: linear-gradient(to right, #f7e5cc 0%, #e7caa3  51%, #ecd9bd  100%);
     font-size: 17px;
     position: absolute;
-    right: 30px;
-    bottom: 30px;
+    right: 25px;
+    bottom: 20px;
+    cursor: pointer;
+    border-radius: 7px;
+    transition: transform 250ms;
 }
+
+.button_card:hover{
+    background-image: linear-gradient(to right, #f5d49f 0%, #dba359  51%, #ebbf7d  100%);
+   transition: transform .5s ease;
+   transform: scale(1.1);
+}
+
+@keyframes fadeIn{
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {
+      opacity:0;
+    }
+    100% {
+      opacity:1;
+    }
+  }

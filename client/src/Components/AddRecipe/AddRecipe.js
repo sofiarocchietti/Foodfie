@@ -51,7 +51,7 @@ export function AddRecipe () {
 }
 const handleCheckbox = (e) => {
   if (e.target.checked) {
-    setInput({
+    setInput({ 
       ...input,
       diets: [...input.diets, e.target.value],
     });
@@ -156,8 +156,8 @@ const handleCheckbox = (e) => {
             ></textarea>
           </div>
           <div>
-              <label>Image</label>
-              <input type="url" name="image" value={input.image} onChange={handleInputChange} />
+              <label className="text_title_form">Image</label>
+              <input type="url" name="image" value={input.image} onChange={handleInputChange} className="text_input"/>
                    {/*  <label>Enter an image URL here! (optional)</label>
                     <input type="url" name="img" placeholder="http://example.com" value={input.image} onChange={handleInputChange}/> */}
                 </div>
@@ -167,7 +167,7 @@ const handleCheckbox = (e) => {
               {diets.map((diet) =>
               <span className="keys" key={diet.name}>
                 <input
-                    className="input"
+                    className="input_diets"
                     type="checkbox"
                     name="diets"
                     value={diet.id}
@@ -179,7 +179,7 @@ const handleCheckbox = (e) => {
               }
               </div> 
             </div>
-          <button className="submitForm" type="submit">
+          <button className="submit_button" type="submit">
           Submit
         </button>
      </form>

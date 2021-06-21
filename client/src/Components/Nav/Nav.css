@@ -10,6 +10,10 @@
     width: 100%;
     top: 0;
     left: 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
     position: fixed;
     display: flex;
     justify-content: space-between;
@@ -41,7 +45,7 @@
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
 	animation-duration: 2s;
-    display: flex;
+    display: inline-block;
     justify-content: center;
     align-items: center;
     position: fixed;

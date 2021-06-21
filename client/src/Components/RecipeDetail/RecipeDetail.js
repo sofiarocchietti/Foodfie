@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRecipeDetail } from '../../Redux/Actions/recipesActions';
+import './RecipeDetail.css'
 import recipeImage from '../../img/recipe.jpg'
 
 function RecipeDetail({match}) {
@@ -26,18 +27,27 @@ function RecipeDetail({match}) {
       <div className="detailsContainer">
         <h1>{recipe.title} </h1>
         <div className="details">
-          <figure className="image">
+          <div className="image_detail">
             <img src={recipe.image? recipe.image : `${recipeImage}` } alt="fotuli" />
-          </figure>
+          </div>
+          <div className="scoreDiv">
+              
+                {/* <h2>Score:</h2> */}
+                <span className="description_number">Score: {recipe.spoonacularScore}</span>
+             
+         
+              {/*   <h2>Health Score:</h2> */}
+                <span className="description_number"> Health Score: {recipe.healthScore}</span>
+              
+            </div>
           <div className="text">
             <div className="diets">
-              <h2>Diets</h2>
               <div className ="diets_name" style={{textTransform: 'uppercase'}}>
               {recipe.diets?.map((diet) => (
                   <span key={diet}>
-                    <p>
+                    <span className="span_diets">
                       {diet}
-                    </p>
+                    </span>
                   </span>
                 ))}   
                 
@@ -46,26 +56,17 @@ function RecipeDetail({match}) {
             <div className="summary">
                 <h2>Summary</h2>
             </div>
-            <div dangerouslySetInnerHTML={summary()} className="summary_description" />
+            <div dangerouslySetInnerHTML={summary()} className="description" />
         
             <div className="instructions">
               <h2>Instructions</h2>
-              <p>{recipe.analyzedInstructions?.map((inst) => (
-                <ul>
+              <p className="description">{recipe.analyzedInstructions?.map((inst) => (
+                <ol>
                   <li>{inst}</li>
-                  </ul>
+                  </ol>
               ))}</p>
             </div>
-            <div className="scoreDiv">
-              <div className="score">
-                <h2>Score</h2>
-                <p>{recipe.spoonacularScore}</p>
-              </div>
-              <div className="healthScore">
-                <h2>health Score</h2>
-                <p>{recipe.healthScore}</p>
-              </div>
-            </div>
+           
           </div>
         </div>
       </div>
