@@ -113,7 +113,7 @@ async function getRecipes(req,res, next) {
     const dbRecipes = await Recipe.findAll({
       include: Diet
     }); 
-    if(dbRecipes.length === 0) return res.send(getRecipes.data)
+    if(dbRecipes.length === 0) return res.send(getRecipes.data.results)
     let arrayResponse = [];
   
     for(let j = 0; j < dbRecipes.length; j++) {
