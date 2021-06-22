@@ -19,7 +19,7 @@ function Home() {
     
     useEffect(() => {
        if(filterBy === 'All' && orderBy === 'Select') {
-        setAllRecipes(/* recipes.results? recipes.results.slice() : */ recipes.slice())
+        setAllRecipes(recipes.slice())
     } else {
         setAllRecipes(filteredRecipes.slice())
     }

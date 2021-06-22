@@ -5,7 +5,11 @@
     margin-top: 80px;
 }
 
-.add_recipe_container input{
+.danger{
+    color: red;
+}
+
+.add_recipe_container input {
     font-family: 'Fredoka One', cursive;
     color: #464646;
     box-shadow: 3px 3px 7px rgb(20 20 20 / 80%); 
@@ -17,6 +21,7 @@
 .add_recipe_container input:hover{
     background-image: linear-gradient(to right, #f5d49f 0%, #dba359  51%, #ebbf7d  100%);
 }
+
 
 .add_recipe_container textarea{
     font-family: 'Fredoka One', cursive;
@@ -70,7 +75,7 @@
    transform: scale(1.1);
 }
 
-.input_diets {
-    font-size: 20px;
+.input_diets label {
+    font-size: 30px;
 }
 

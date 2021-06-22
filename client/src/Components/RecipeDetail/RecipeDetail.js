@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRecipeDetail } from '../../Redux/Actions/recipesActions';
-import './RecipeDetail.css'
-import recipeImage from '../../img/recipe.jpg'
+import Nav from '../Nav/Nav';
+import './RecipeDetail.css';
+import recipeImage from '../../img/recipe.jpg';
 
 function RecipeDetail({match}) {
 
@@ -24,6 +25,7 @@ function RecipeDetail({match}) {
     return (
         <div>
              <>
+             <Nav />
       <div className="detailsContainer">
         <h1>{recipe.title} </h1>
         <div className="details">

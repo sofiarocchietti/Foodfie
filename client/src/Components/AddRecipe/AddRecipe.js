@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { createRecipe } from '../../Redux/Actions/recipesActions';
 import { getDiets } from '../../Redux/Actions/dietsActions';
+import Nav from '../Nav/Nav';
 import './AddRecipe.css'
 import { validate } from './Error';
 
@@ -78,12 +79,13 @@ const handleCheckbox = (e) => {
       diets: []
       })
     } else {
-      alert("Try again!")
+      alert("Some ingredients are missing :(")
     }
 }
  
   return (
     <div className="add_recipe_container">
+      <Nav /> 
      <h1 className="h1_title">Recipe Creator: </h1>
      <form
      className="recipe_form"
@@ -157,7 +159,7 @@ const handleCheckbox = (e) => {
           </div>
           <div>
               <label className="text_title_form">Image</label>
-              <input type="url" name="image" value={input.image} onChange={handleInputChange} className="text_input"/>
+              <input type="url" name="image" placeholder= "Insert an URL Image" value={input.image} onChange={handleInputChange} className="text_input"/>
                    {/*  <label>Enter an image URL here! (optional)</label>
                     <input type="url" name="img" placeholder="http://example.com" value={input.image} onChange={handleInputChange}/> */}
                 </div>
