@@ -6,17 +6,18 @@ const { Recipe, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const recipe = {
-  title: 'Milanea a la napolitana',
+  title: 'Milanesa a la napolitana',
+  summary: 'lo mas rico que hay'
 };
 
-/* describe('Recipe routes', () => {
+ describe('Recipe routes', () => {
   before(() => conn.authenticate()
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   }));
-  beforeEach(() => Recipe.sync()
+  beforeEach(() => Recipe.sync({force: true})
     .then(() => Recipe.create(recipe)));
-    describe('GET /recipes', () => {
+ describe('GET /recipes', () => {
       it('responds with 200', async () => {
         try {
           await agent.get('/recipes').expect(200);
@@ -24,10 +25,10 @@ const recipe = {
           console.log(err);
         }
       }).timeout(10000);
-      it('responds an array with 100 recipes', async () => {
+      it('responds an array with 101 recipes', async () => {
         try {
           const res = await agent.get('/recipes');
-          expect(res.body).to.have.lengthOf(100);
+          expect(res.body).to.have.lengthOf(101);
         } catch (err) {
           console.log(err);
         }
@@ -47,37 +48,4 @@ const recipe = {
     });
 });
 
-describe('POST /addRecipe', () => {
-  it('responds with 200', async () => {
-    try {
-      await agent.post('/addRecipe').send({title: 'Lasagna de verduras', summary: 'Le pones amor tuki tuki'}).expect(200);
-    } catch (err) {
-      console.log(err);
-    }
-  });
-
-  it('If you dont pass the title, it responds with a 404', async () => {
-    try {
-      await agent.post('/addRecipe').send({}).expect(404);
-    } catch (err) {
-      console.log(err);
-    }
-  });
-  it('If you dont pass the summary, it respond with a 404', async () => {
-    try {
-      await agent.post('/addRecipe').send({title: 'Lasagna de verduras'}).expect(404);
-    } catch (err) {
-      console.log(err);
-    }
-  });
-  it('It should create a new recipe correctly', async () => {
-    try {
-      const res = await agent
-        .post('/addRecipe')
-        .send({title: 'Lasagna de verduras', summary: 'Le pones amor tuki tuki'});
-      expect(res.body.title).to.be.equal('Lasagna de verduras');
-    } catch (err) {
-      console.log(err);
-    }
-  });
-}); */
+ 

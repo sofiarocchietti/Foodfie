@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Link} from 'react-router-dom';
+import { useDispatch} from 'react-redux';
+import { NavLink} from 'react-router-dom';
 import './Nav.css'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons'
 import { getRecipes, searchRecipes } from '../../Redux/Actions/recipesActions';
 import { reset } from '../../Redux/Actions/orderActions';
 import logo from '../../img/logo.png'
-import { getDiets } from '../../Redux/Actions/dietsActions';
+
 
 export default function Nav() {
     const dispatch = useDispatch(); 
@@ -42,12 +42,9 @@ export default function Nav() {
                placeholder="What are you going to eat today?"
                value={title}
                type="text"/>
-                   
                    <button className="search_button" type="submit">
                        <FontAwesomeIcon icon={faSearch}/>
                        </button>
-              
-
            </form>
            </div>
            <NavLink to={`/addRecipe`}>

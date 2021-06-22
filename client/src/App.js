@@ -16,8 +16,6 @@ function App() {
        <Route exact path='/home' component={Home}/>
        <Route path='/recipe/:id' component={RecipeDetail} />
        <Route path= '/home' component={Nav}/> 
-       <Route path= '/recipe/:id' component={Nav}/> 
-       <Route path= '/addRecipe' component= {Nav}/> 
        <Route exact path='/addRecipe' component={AddRecipe}/>
     </div>
   );
