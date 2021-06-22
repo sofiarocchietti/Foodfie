@@ -38,7 +38,6 @@ function rootReducer(state = initialState, action) {
         case SEARCH_RECIPES :
           console.log(action.payload) 
           return {
-
             ...state,
             recipes: action.payload
           }

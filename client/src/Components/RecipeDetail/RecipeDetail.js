@@ -61,9 +61,9 @@ function RecipeDetail({match}) {
             <div className="instructions">
               <h2>Instructions</h2>
               <p className="description">{recipe.analyzedInstructions?.map((inst) => (
-                <ol>
+                <ul>
                   <li>{inst}</li>
-                  </ol>
+                  </ul>
               ))}</p>
             </div>
            

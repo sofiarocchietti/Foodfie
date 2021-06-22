@@ -1,15 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { connect } from 'react-redux';
-import { useSelector, useDispatch } from 'react-redux';
-import { getRecipes } from '../../Redux/Actions/recipesActions';
-import { reset } from '../../Redux/Actions/orderActions';
+import { useSelector} from 'react-redux';
 import Pagination  from '../Pagination/Pagination';
 import FilterOptions from '../FilterOptions/FilterOptions';
 import DisplayRecipes from '../DisplayRecipes/DisplayRecipes';
-
 import Nav from '../Nav/Nav';
 import './Home.css'
-import { getDiets } from '../../Redux/Actions/dietsActions';
 
 function Home() {
   const {recipes} = useSelector((state) => state);
@@ -21,12 +16,10 @@ function Home() {
     const [page, setPage] = useState(1);
     const [recipesPerPage] = useState(9);
 
-
-
-  const dispatch = useDispatch() 
+    
     useEffect(() => {
        if(filterBy === 'All' && orderBy === 'Select') {
-        setAllRecipes(recipes.results? recipes.results.slice() : recipes.slice())
+        setAllRecipes(/* recipes.results? recipes.results.slice() : */ recipes.slice())
     } else {
         setAllRecipes(filteredRecipes.slice())
     }
