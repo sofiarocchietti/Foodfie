@@ -23,15 +23,14 @@
  }
 
  .image_detail img{
-    display: flex;
-    position: relative;
-    margin: 16px auto;
-    border-radius: 16px;
-    width: 300px;
-    height: 250px;
-    object-fit: cover;
-    object-position: center center;
-    box-shadow: 3px 3px 5px rgb(20 20 20 / 80%);
+   display: block;
+   margin: 16px auto;
+   border-radius: 16px;
+   height: 250px;
+   width: 300px;
+   object-fit: cover;
+   object-position: center center;
+   box-shadow: 3px 3px 5px rgb(20 20 20 / 80%);
  }
 
  ol  {
