@@ -160,8 +160,6 @@ const handleCheckbox = (e) => {
           <div>
               <label className="text_title_form">Image</label>
               <input type="url" name="image" placeholder= "Insert an URL Image" value={input.image} onChange={handleInputChange} className="text_input"/>
-                   {/*  <label>Enter an image URL here! (optional)</label>
-                    <input type="url" name="img" placeholder="http://example.com" value={input.image} onChange={handleInputChange}/> */}
                 </div>
           <div className="diets_checkbox">
           <label className="text_title_form">Choose your diets</label>

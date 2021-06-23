@@ -8,7 +8,7 @@ export function validate (input) {
   if (!input.summary) {
     errors.summary = 'Summary is required'
   } else if (!/([A-Z]|[a-z])|\w+/.test(input.summary)) {
-    errors.summary = 'Summary is invalid'
+    errors.summary = 'Summary is required'
   }
   if (!/^([0-9]|[1-9][0-9]|[1][0][0])$/.test(input.spoonacularScore)) {
     errors.spoonacularScore = 'Score must be a number between 0 and 100'
