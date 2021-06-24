@@ -7,7 +7,6 @@ const initialState = {
     recipes: [],
     diets : [],
     recipeById: {},
-    searchedRecipes: [],
     createdRecipe: [],
     filteredRecipes: [],
     orderBy: "Select",
